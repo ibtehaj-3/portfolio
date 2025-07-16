@@ -27,26 +27,41 @@ function safeSetLocalStorage(key, value) {
 class ThemeManager {
   constructor() {
     this.theme = safeLocalStorage("theme", "dark");
+    console.log("ThemeManager initialized with theme:", this.theme);
     this.init();
   }
 
   init() {
+    console.log(
+      "ThemeManager init called, document.readyState:",
+      document.readyState
+    );
     // Ensure DOM is ready
     if (document.readyState === "loading") {
+      console.log("DOM still loading, waiting for DOMContentLoaded...");
       document.addEventListener("DOMContentLoaded", () => this.setup());
     } else {
+      console.log("DOM ready, setting up theme...");
       this.setup();
     }
   }
 
   setup() {
+    console.log("ThemeManager setup called");
     document.documentElement.setAttribute("data-theme", this.theme);
-    this.updateThemeIcon();
-    this.bindEvents();
+    console.log("Theme attribute set to:", this.theme);
+
+    // Add a small delay to ensure DOM is fully rendered
+    setTimeout(() => {
+      this.updateThemeIcon();
+      this.bindEvents();
+    }, 100);
   }
 
   toggle() {
+    console.log("Theme toggle called, current theme:", this.theme);
     this.theme = this.theme === "dark" ? "light" : "dark";
+    console.log("New theme:", this.theme);
     document.documentElement.setAttribute("data-theme", this.theme);
     safeSetLocalStorage("theme", this.theme);
     this.updateThemeIcon();
@@ -54,15 +69,33 @@ class ThemeManager {
 
   updateThemeIcon() {
     const icon = document.querySelector("#theme-toggle i");
+    console.log("Updating theme icon, icon element:", icon);
     if (icon) {
-      icon.className = this.theme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      const newClass = this.theme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      icon.className = newClass;
+      console.log("Theme icon updated to:", newClass);
+    } else {
+      console.warn("Theme toggle icon not found");
     }
   }
 
   bindEvents() {
     const themeToggle = document.getElementById("theme-toggle");
+    console.log("Binding theme events, themeToggle element:", themeToggle);
     if (themeToggle) {
-      themeToggle.addEventListener("click", () => this.toggle());
+      // Remove any existing listeners
+      themeToggle.removeEventListener("click", this.handleToggle);
+      // Add new listener
+      this.handleToggle = () => this.toggle();
+      themeToggle.addEventListener("click", this.handleToggle);
+      console.log("Theme toggle event listener added");
+    } else {
+      console.warn("Theme toggle button not found");
+      // Retry after a short delay
+      setTimeout(() => {
+        console.log("Retrying theme toggle binding...");
+        this.bindEvents();
+      }, 500);
     }
   }
 }
@@ -74,41 +107,81 @@ class NavigationManager {
     this.hamburger = null;
     this.navMenu = null;
     this.navLinks = [];
+    console.log("NavigationManager initialized");
     this.init();
   }
 
   init() {
+    console.log(
+      "NavigationManager init called, document.readyState:",
+      document.readyState
+    );
     // Wait for DOM to be ready
     if (document.readyState === "loading") {
+      console.log("DOM still loading, waiting for DOMContentLoaded...");
       document.addEventListener("DOMContentLoaded", () => this.setup());
     } else {
+      console.log("DOM ready, setting up navigation...");
       this.setup();
     }
   }
 
   setup() {
+    console.log("NavigationManager setup called");
     this.navbar = document.getElementById("navbar");
     this.hamburger = document.getElementById("hamburger");
     this.navMenu = document.getElementById("nav-menu");
     this.navLinks = document.querySelectorAll(".nav-link");
 
-    this.bindEvents();
-    this.handleScroll();
-    this.setActiveLink();
+    console.log("Navigation elements found:", {
+      navbar: !!this.navbar,
+      hamburger: !!this.hamburger,
+      navMenu: !!this.navMenu,
+      navLinksCount: this.navLinks.length,
+    });
+
+    // Add a small delay to ensure DOM is fully rendered
+    setTimeout(() => {
+      this.bindEvents();
+      this.handleScroll();
+      this.setActiveLink();
+    }, 100);
   }
 
   bindEvents() {
+    console.log("Binding navigation events...");
+
     // Hamburger menu toggle
     if (this.hamburger && this.navMenu) {
-      this.hamburger.addEventListener("click", (e) => {
+      console.log("Setting up hamburger menu...");
+      // Remove any existing listeners
+      this.hamburger.removeEventListener("click", this.handleHamburgerClick);
+      // Add new listener
+      this.handleHamburgerClick = (e) => {
         e.preventDefault();
+        console.log("Hamburger clicked");
         this.toggleMobileMenu();
+      };
+      this.hamburger.addEventListener("click", this.handleHamburgerClick);
+      console.log("Hamburger event listener added");
+    } else {
+      console.warn("Hamburger or nav menu not found:", {
+        hamburger: !!this.hamburger,
+        navMenu: !!this.navMenu,
       });
+      // Retry after a short delay
+      setTimeout(() => {
+        console.log("Retrying hamburger binding...");
+        this.setup();
+      }, 500);
     }
 
     // Close mobile menu when clicking on links
-    this.navLinks.forEach((link) => {
-      link.addEventListener("click", () => this.closeMobileMenu());
+    this.navLinks.forEach((link, index) => {
+      link.addEventListener("click", () => {
+        console.log(`Nav link ${index} clicked`);
+        this.closeMobileMenu();
+      });
     });
 
     // Close mobile menu when clicking outside
@@ -118,6 +191,7 @@ class NavigationManager {
           !this.navMenu.contains(e.target) &&
           !this.hamburger.contains(e.target)
         ) {
+          console.log("Clicked outside menu, closing...");
           this.closeMobileMenu();
         }
       }
@@ -143,24 +217,37 @@ class NavigationManager {
   }
 
   toggleMobileMenu() {
+    console.log("Toggling mobile menu...");
     if (this.navMenu && this.hamburger) {
+      const isActive = this.navMenu.classList.contains("active");
+      console.log("Menu currently active:", isActive);
+
       this.navMenu.classList.toggle("active");
       this.hamburger.classList.toggle("active");
 
+      const newIsActive = this.navMenu.classList.contains("active");
+      console.log("Menu now active:", newIsActive);
+
       // Prevent body scroll when menu is open
-      if (this.navMenu.classList.contains("active")) {
+      if (newIsActive) {
         document.body.style.overflow = "hidden";
+        console.log("Body scroll disabled");
       } else {
         document.body.style.overflow = "";
+        console.log("Body scroll enabled");
       }
+    } else {
+      console.warn("Cannot toggle menu - elements not found");
     }
   }
 
   closeMobileMenu() {
+    console.log("Closing mobile menu...");
     if (this.navMenu && this.hamburger) {
       this.navMenu.classList.remove("active");
       this.hamburger.classList.remove("active");
       document.body.style.overflow = "";
+      console.log("Mobile menu closed");
     }
   }
 
@@ -226,17 +313,28 @@ class TypingAnimation {
     this.isDeleting = false;
     this.timeoutId = null;
 
+    console.log("TypingAnimation constructor called");
+    console.log("Element:", this.element);
+    console.log("Texts:", this.texts);
+
     if (this.element && this.texts && this.texts.length > 0) {
+      console.log("Starting typing animation...");
       this.init();
+    } else {
+      console.warn("TypingAnimation: Missing element or texts");
     }
   }
 
   init() {
+    console.log("TypingAnimation initialized");
     this.type();
   }
 
   type() {
-    if (!this.element || !this.texts || this.texts.length === 0) return;
+    if (!this.element || !this.texts || this.texts.length === 0) {
+      console.warn("TypingAnimation: Missing element or texts in type()");
+      return;
+    }
 
     const currentText = this.texts[this.textIndex];
 
@@ -273,29 +371,55 @@ class CounterAnimation {
   constructor() {
     this.counters = document.querySelectorAll(".stat-number");
     this.animatedCounters = new Set();
+    console.log(
+      "CounterAnimation initialized, found",
+      this.counters.length,
+      "counters"
+    );
     this.init();
   }
 
   init() {
     if (this.counters.length > 0) {
+      console.log("Setting up counter observers...");
       this.observeCounters();
+    } else {
+      console.warn("No counter elements found");
+      // Retry after a short delay in case elements aren't loaded yet
+      setTimeout(() => {
+        console.log("Retrying counter initialization...");
+        this.counters = document.querySelectorAll(".stat-number");
+        if (this.counters.length > 0) {
+          this.observeCounters();
+        }
+      }, 1000);
     }
   }
 
   observeCounters() {
+    console.log("Setting up counter observation...");
     // Fallback for browsers without IntersectionObserver
     if (!window.IntersectionObserver) {
+      console.log("IntersectionObserver not available, using scroll fallback");
       window.addEventListener("scroll", () => this.checkCountersInView());
+      // Also trigger immediately in case elements are already in view
+      setTimeout(() => this.checkCountersInView(), 500);
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
+        console.log(
+          "Counter intersection observed:",
+          entries.length,
+          "entries"
+        );
         entries.forEach((entry) => {
           if (
             entry.isIntersecting &&
             !this.animatedCounters.has(entry.target)
           ) {
+            console.log("Counter entering view, animating...");
             this.animateCounter(entry.target);
             this.animatedCounters.add(entry.target);
             observer.unobserve(entry.target);
@@ -305,14 +429,25 @@ class CounterAnimation {
       { threshold: 0.5 }
     );
 
-    this.counters.forEach((counter) => observer.observe(counter));
+    this.counters.forEach((counter, index) => {
+      console.log(`Observing counter ${index}:`, counter);
+      observer.observe(counter);
+    });
+
+    // Also add a fallback trigger after some time
+    setTimeout(() => {
+      console.log("Fallback counter trigger...");
+      this.checkCountersInView();
+    }, 2000);
   }
 
   checkCountersInView() {
-    this.counters.forEach((counter) => {
+    console.log("Checking counters in view...");
+    this.counters.forEach((counter, index) => {
       if (!this.animatedCounters.has(counter)) {
         const rect = counter.getBoundingClientRect();
         const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        console.log(`Counter ${index} in view:`, isInView);
         if (isInView) {
           this.animateCounter(counter);
           this.animatedCounters.add(counter);
@@ -323,7 +458,12 @@ class CounterAnimation {
 
   animateCounter(counter) {
     const target = parseFloat(counter.getAttribute("data-target"));
-    if (isNaN(target)) return;
+    console.log("Animating counter to:", target);
+
+    if (isNaN(target)) {
+      console.warn("Invalid target value for counter:", counter);
+      return;
+    }
 
     const increment = target / 100;
     let current = 0;
@@ -338,7 +478,9 @@ class CounterAnimation {
         }
         requestAnimationFrame(updateCounter);
       } else {
-        counter.textContent = target === 3.4 ? target.toFixed(1) : target;
+        const finalValue = target === 3.4 ? target.toFixed(1) : target;
+        counter.textContent = finalValue;
+        console.log("Counter animation completed:", finalValue);
       }
     };
 
@@ -616,20 +758,38 @@ class ParallaxEffect {
 
 // Initialize everything when DOM is loaded
 function initializeApp() {
+  console.log("Initializing app...");
   try {
     // Initialize all components with error handling
+    console.log("Creating Preloader...");
     new Preloader();
+
+    console.log("Creating ThemeManager...");
     new ThemeManager();
+
+    console.log("Creating NavigationManager...");
     new NavigationManager();
+
+    console.log("Creating CounterAnimation...");
     new CounterAnimation();
+
+    console.log("Creating ScrollAnimations...");
     new ScrollAnimations();
+
+    console.log("Creating ContactForm...");
     new ContactForm();
+
+    console.log("Creating ScrollToTop...");
     new ScrollToTop();
+
+    console.log("Creating ParallaxEffect...");
     new ParallaxEffect();
 
     // Initialize typing animation
+    console.log("Initializing typing animation...");
     const typingElement = document.getElementById("typing-text");
     if (typingElement) {
+      console.log("Typing element found, creating animation...");
       new TypingAnimation(typingElement, [
         ".NET Developer",
         "Python Developer",
@@ -637,16 +797,23 @@ function initializeApp() {
         "AI/ML Enthusiast",
         "Problem Solver",
       ]);
+    } else {
+      console.warn("Typing element not found");
     }
 
     // Add loading class to body
     document.body.classList.add("loaded");
+    console.log("Body loaded class added");
 
     // Add ripple effects to buttons
+    console.log("Initializing ripple effects...");
     initializeRippleEffects();
+
+    console.log("App initialization completed successfully");
   } catch (error) {
     console.error("Error initializing app:", error);
     // Fallback initialization
+    console.log("Attempting fallback initialization...");
     initializeFallback();
   }
 }
@@ -790,3 +957,53 @@ window.addEventListener(
     // Any additional scroll-based functionality can go here
   }, 10)
 );
+
+// Final initialization check and diagnostics
+function performInitializationDiagnostics() {
+  console.log("=== Portfolio Initialization Diagnostics ===");
+
+  // Check if all classes are properly initialized
+  console.log("ThemeManager instance:", window.themeManager ? "OK" : "MISSING");
+  console.log(
+    "NavigationManager instance:",
+    window.navigationManager ? "OK" : "MISSING"
+  );
+  console.log(
+    "CounterAnimation instance:",
+    window.counterAnimation ? "OK" : "MISSING"
+  );
+  console.log(
+    "TypingAnimation instance:",
+    window.typingAnimation ? "OK" : "MISSING"
+  );
+
+  // Check essential DOM elements
+  const darkToggle = document.querySelector(".dark-toggle");
+  const mobileToggle = document.querySelector(".mobile-toggle");
+  const counters = document.querySelectorAll(".stat-number");
+  const typingElement = document.querySelector(".typing-text");
+
+  console.log("Dark toggle element:", darkToggle ? "FOUND" : "MISSING");
+  console.log("Mobile toggle element:", mobileToggle ? "FOUND" : "MISSING");
+  console.log("Counter elements:", counters.length, "found");
+  console.log("Typing element:", typingElement ? "FOUND" : "MISSING");
+
+  // Check theme functionality
+  if (darkToggle) {
+    console.log(
+      "Dark theme current state:",
+      document.body.classList.contains("dark") ? "DARK" : "LIGHT"
+    );
+  }
+
+  // Check mobile nav functionality
+  if (mobileToggle) {
+    const sidebar = document.querySelector(".sidebar");
+    console.log("Mobile sidebar element:", sidebar ? "FOUND" : "MISSING");
+  }
+
+  console.log("=== End Diagnostics ===");
+}
+
+// Run diagnostics after everything should be initialized
+setTimeout(performInitializationDiagnostics, 3000);
