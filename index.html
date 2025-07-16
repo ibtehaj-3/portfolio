@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muhammad Ibtehaj Ali - .NET & Python Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <span class="logo-text">Ibtehaj</span>
+          <span class="logo-accent">.</span>
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle">
+            <i class="fas fa-sun"></i>
+          </button>
+          <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-bg">
+        <div class="grid-overlay"></div>
+        <div class="floating-elements">
+          <div class="floating-element" style="--delay: 0s"></div>
+          <div class="floating-element" style="--delay: 2s"></div>
+          <div class="floating-element" style="--delay: 4s"></div>
+        </div>
+      </div>
+      <div class="hero-container">
+        <div class="hero-content">
+          <!-- <div class="hero-badge">
+                    <span class="badge-text">Available for opportunities</span>
+                    <div class="badge-pulse"></div>
+                </div> -->
+          <h1 class="hero-title">
+            <span class="title-line">Muhammad</span>
+            <span class="title-line gradient-text">Ibtehaj Ali</span>
+          </h1>
+          <div class="hero-subtitle">
+            <span class="typing-text" id="typing-text"></span>
+            <span class="cursor">|</span>
+          </div>
+          <p class="hero-description">
+            I love to build secure and scalable web applications with ASP.NET
+            Core and Blazor, crafting innovative solutions that seamlessly
+            connect robust backend systems with intuitive user experiences.
+          </p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">
+              <span>Get In Touch</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="#projects" class="btn btn-secondary">
+              <span>View Projects</span>
+              <i class="fas fa-code"></i>
+            </a>
+          </div>
+          <div class="hero-social">
+            <a
+              href="mailto:ibtehaj572@gmail.com"
+              class="social-link"
+              data-tooltip="Email"
+            >
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a
+              href="https://linkedin.com/in/ibtehajali"
+              class="social-link"
+              data-tooltip="LinkedIn"
+              target="_blank"
+            >
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a
+              href="https://github.com/ibtehaj-3"
+              class="social-link"
+              data-tooltip="GitHub"
+              target="_blank"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="code-window">
+            <div class="window-header">
+              <div class="window-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+              </div>
+              <div class="window-title">Program.cs</div>
+            </div>
+            <div class="code-content">
+              <pre><code><span class="keyword">using</span> <span class="namespace">Microsoft.AspNetCore</span>;
+<span class="keyword">using</span> <span class="namespace">Microsoft.EntityFrameworkCore</span>;
+
+<span class="keyword">var</span> <span class="variable">builder</span> = <span class="class">WebApplication</span>.<span class="method">CreateBuilder</span>(<span class="variable">args</span>);
+
+<span class="comment">// Add services to the container</span>
+<span class="variable">builder</span>.<span class="property">Services</span>.<span class="method">AddControllers</span>();
+<span class="variable">builder</span>.<span class="property">Services</span>.<span class="method">AddDbContext</span>&lt;<span class="class">AppDbContext</span>&gt;();
+
+<span class="keyword">var</span> <span class="variable">app</span> = <span class="variable">builder</span>.<span class="method">Build</span>();
+
+<span class="variable">app</span>.<span class="method">UseAuthentication</span>();
+<span class="variable">app</span>.<span class="method">UseAuthorization</span>();
+<span class="variable">app</span>.<span class="method">MapControllers</span>();
+
+<span class="variable">app</span>.<span class="method">Run</span>();</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">About Me</span>
+          <h2 class="section-title">Building the Future with Code</h2>
+          <p class="section-subtitle">
+            Passionate developer with expertise in modern web technologies
+          </p>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <div class="text-block">
+              <h3>Professional Journey</h3>
+              <p>
+                As a Computer Science graduate from Air University with a
+                stellar 3.40 CGPA and High Achiever Certificate, I've dedicated
+                myself to mastering the art of software development. My journey
+                spans 2+ years of hands-on experience in building secure,
+                scalable web applications.
+              </p>
+            </div>
+            <div class="text-block">
+              <h3>Technical Excellence</h3>
+              <p>
+                I specialize in ASP.NET Core, Blazor, and modern web
+                technologies, with a strong foundation in both frontend and
+                backend development. My expertise extends to AI/ML
+                implementations, making me versatile in today's tech landscape.
+              </p>
+            </div>
+            <div class="about-stats">
+              <div class="stat-card">
+                <div class="stat-number" data-target="2">0</div>
+                <div class="stat-label">Years Experience</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="20">0</div>
+                <div class="stat-label">Projects Completed</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">Technologies</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="3.4">0</div>
+                <div class="stat-label">CGPA</div>
+              </div>
+            </div>
+          </div>
+          <div class="about-visual">
+            <div class="profile-card">
+              <div class="profile-image">
+                <img src="ibtehaj.jpg" alt="Muhammad Ibtehaj Ali" />
+                <div class="profile-overlay">
+                  <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Available</span>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-info">
+                <h3>Muhammad Ibtehaj Ali</h3>
+                <p>.NET & Python Developer</p>
+                <div class="profile-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Islamabad, Pakistan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Skills & Specialization</span>
+          <h2 class="section-title">Technical Expertise</h2>
+          <p class="section-subtitle">
+            Comprehensive skill set across modern development stack
+          </p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-category" data-category="web">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-globe"></i>
+              </div>
+              <h3>Web Development</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">ASP.NET Core (6, 7, 8)</div>
+              <div class="skill-item">ASP.NET MVC</div>
+              <div class="skill-item">Blazor</div>
+              <div class="skill-item">Razor Components</div>
+              <div class="skill-item">Entity Framework Core</div>
+              <div class="skill-item">React</div>
+              <div class="skill-item">HTML/CSS</div>
+              <div class="skill-item">Bootstrap</div>
+              <div class="skill-item">JavaScript</div>
+              <div class="skill-item">TypeScript</div>
+            </div>
+          </div>
+
+          <div class="skill-category" data-category="api">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-plug"></i>
+              </div>
+              <h3>APIs & Integrations</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">RESTful APIs</div>
+              <div class="skill-item">JWT Authentication</div>
+              <div class="skill-item">Stripe Payment Gateway</div>
+              <div class="skill-item">Google OAuth2</div>
+              <div class="skill-item">Facebook OAuth2</div>
+              <div class="skill-item">Google Maps</div>
+              <div class="skill-item">SMTP</div>
+              <div class="skill-item">RestSharp</div>
+              <div class="skill-item">RestClient</div>
+              <div class="skill-item">OneNote Graph APIs</div>
+            </div>
+          </div>
+
+          <div class="skill-category" data-category="database">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-database"></i>
+              </div>
+              <h3>Databases</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">Microsoft SQL Server</div>
+              <div class="skill-item">MongoDB</div>
+              <div class="skill-item">PostgreSQL</div>
+              <div class="skill-item">Azure Data Studio</div>
+            </div>
+          </div>
+
+          <div class="skill-category" data-category="architecture">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-sitemap"></i>
+              </div>
+              <h3>Architectures</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">Clean Architecture</div>
+              <div class="skill-item">Three-Tier Architecture</div>
+              <div class="skill-item">MVC Architecture</div>
+              <div class="skill-item">Microservices</div>
+            </div>
+          </div>
+
+          <div class="skill-category" data-category="languages">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <h3>Programming Languages</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">C#</div>
+              <div class="skill-item">Python</div>
+              <div class="skill-item">JavaScript</div>
+              <div class="skill-item">TypeScript</div>
+              <div class="skill-item">C++</div>
+              <div class="skill-item">Dart</div>
+            </div>
+          </div>
+
+          <div class="skill-category" data-category="devops">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-tools"></i>
+              </div>
+              <h3>DevOps & Tooling</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">Git</div>
+              <div class="skill-item">GitHub</div>
+              <div class="skill-item">GitLab</div>
+              <div class="skill-item">Docker</div>
+              <div class="skill-item">Azure Blob Storage</div>
+              <div class="skill-item">RunPod</div>
+              <div class="skill-item">Ollama</div>
+              <div class="skill-item">Visual Studio</div>
+            </div>
+          </div>
+
+          <div class="skill-category" data-category="ai">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h3>AI/ML</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">Supervised Learning</div>
+              <div class="skill-item">Unsupervised Learning</div>
+              <div class="skill-item">Feature Scaling</div>
+              <div class="skill-item">Feature Encoding</div>
+              <div class="skill-item">Deep Neural Networks</div>
+              <div class="skill-item">RAG (Retrieval-Augmented Generation)</div>
+            </div>
+          </div>
+
+          <div class="skill-category" data-category="other">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-cogs"></i>
+              </div>
+              <h3>Other Skills</h3>
+            </div>
+            <div class="skills-list">
+              <div class="skill-item">Selenium</div>
+              <div class="skill-item">Web Scraping</div>
+              <div class="skill-item">Agile Methodologies</div>
+              <div class="skill-item">Event Management</div>
+              <div class="skill-item">Team Leadership</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Featured Work</span>
+          <h2 class="section-title">Projects & Achievements</h2>
+          <p class="section-subtitle">
+            Showcasing innovative solutions and technical excellence
+          </p>
+        </div>
+
+        <div class="project-featured">
+          <div class="project-card featured-project">
+            <div class="project-image" style="height: auto">
+              <img src="tourify home.png" alt="Tourify Project" />
+              <div class="project-overlay">
+                <div class="project-tech-stack">
+                  <span class="tech-tag">ASP.NET Core 7</span>
+                  <span class="tech-tag">Blazor</span>
+                  <span class="tech-tag">JWT</span>
+                  <span class="tech-tag">Stripe</span>
+                  <span class="tech-tag">OAuth2</span>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-header">
+                <div class="project-badge">Final Year Project</div>
+                <h3 class="project-title">TOURIFY</h3>
+                <p class="project-subtitle">
+                  Integrated Tourism and Ecommerce Platform
+                </p>
+              </div>
+              <div class="project-description">
+                <p>
+                  Developed a comprehensive Tour Booking Platform that
+                  seamlessly connects users and tour companies. Built with
+                  ASP.NET Core 7, featuring secure JWT authentication,
+                  integrated payment processing, and real-time booking
+                  management.
+                </p>
+              </div>
+              <div class="project-features">
+                <div class="feature-item">
+                  <i class="fas fa-shield-alt"></i>
+                  <span>JWT Authentication & Role-based Access Control</span>
+                </div>
+                <div class="feature-item">
+                  <i class="fas fa-credit-card"></i>
+                  <span>Stripe Payment Gateway Integration</span>
+                </div>
+                <div class="feature-item">
+                  <i class="fas fa-map-marked-alt"></i>
+                  <span>Google Maps & OAuth2 Integration</span>
+                </div>
+                <div class="feature-item">
+                  <i class="fas fa-envelope"></i>
+                  <span>SMTP Notifications & Confirmations</span>
+                </div>
+              </div>
+              <div class="project-actions">
+                <a href="#" class="btn btn-primary">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span>Live Demo</span>
+                </a>
+                <a
+                  href="https://github.com/ibtehaj-3/TourPK"
+                  class="btn btn-secondary"
+                >
+                  <i class="fab fa-github"></i>
+                  <span>Source Code</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-image">
+              <img
+                src="https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt="E-Commerce API"
+              />
+              <div class="project-overlay">
+                <div class="project-actions-overlay">
+                  <a href="#" class="action-btn"><i class="fas fa-eye"></i></a>
+                  <a href="#" class="action-btn"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>E-Commerce API</h3>
+              <p>
+                RESTful API with authentication, payment processing, and
+                inventory management using ASP.NET Core.
+              </p>
+              <div class="project-tech">
+                <span>ASP.NET Core</span>
+                <span>Entity Framework</span>
+                <span>SQL Server</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <img src="unifiesta home.jpeg" alt="Unifiesta Event Management" />
+              <div class="project-overlay">
+                <div class="project-actions-overlay">
+                  <a href="#" class="action-btn"><i class="fas fa-eye"></i></a>
+                  <a href="#" class="action-btn"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Unifiesta Event Management</h3>
+              <p>
+                All in one event management platform for University events,
+                where users can create, manage, and promote their events
+                seamlessly.
+              </p>
+              <div class="project-tech">
+                <span>Blazor</span>
+                <span>SQL Server</span>
+                <span>EF Core</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <img src="pkversity.PNG" alt="PkVersity" />
+              <div class="project-overlay">
+                <div class="project-actions-overlay">
+                  <a href="#" class="action-btn"><i class="fas fa-eye"></i></a>
+                  <a href="#" class="action-btn"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>PkVersity</h3>
+              <p>
+                A full stack application .net application to help candidates
+                find universities in Pakistan based on their preferences and
+                requirements. Also, provides a platform for universities to
+                showcase their programs and offerings.
+              </p>
+              <div class="project-tech">
+                <span>Blazor</span>
+                <span>.NET Core</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Career Journey</span>
+          <h2 class="section-title">Professional Experience</h2>
+          <p class="section-subtitle">
+            Building expertise through hands-on development
+          </p>
+        </div>
+
+        <div class="experience-content">
+          <div class="education-card">
+            <div class="card-header">
+              <div class="institution-logo">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="institution-info">
+                <h3>Air University</h3>
+                <p>Islamabad, Pakistan</p>
+              </div>
+              <div class="period">Sept 2021 - July 2025</div>
+            </div>
+            <div class="card-content">
+              <h4>Bachelor of Science in Computer Science</h4>
+              <div class="achievements">
+                <div class="achievement-item">
+                  <i class="fas fa-trophy"></i>
+                  <span
+                    >High Achiever Certificate (awarded once among batch)</span
+                  >
+                </div>
+                <div class="achievement-item">
+                  <i class="fas fa-star"></i>
+                  <span>CGPA: 3.40</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="experience-timeline">
+            <div class="timeline-item">
+              <div class="timeline-marker">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3>.NET Developer</h3>
+                  <span class="timeline-period">2022 - Present</span>
+                </div>
+                <p class="timeline-company">Freelance & Contract Work</p>
+                <ul class="timeline-achievements">
+                  <li>
+                    Developed secure and scalable web applications using ASP.NET
+                    Core
+                  </li>
+                  <li>
+                    Implemented JWT authentication and role-based access control
+                  </li>
+                  <li>Integrated payment gateways and OAuth2 authentication</li>
+                  <li>
+                    Built responsive UIs with Blazor and modern CSS frameworks
+                  </li>
+                  <li>Worked with Entity Framework Core and SQL Server</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <h3>AI/ML Developer</h3>
+                  <span class="timeline-period">2023 - Present</span>
+                </div>
+                <p class="timeline-company">Python & AI Projects</p>
+                <ul class="timeline-achievements">
+                  <li>
+                    Contributed to backend scripting and workflow automation
+                  </li>
+                  <li>
+                    Developed AI-focused projects using Python and FastAPI
+                  </li>
+                  <li>
+                    Implemented machine learning models for data processing
+                  </li>
+                  <li>Worked with Prefect for workflow orchestration</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get In Touch</span>
+          <h2 class="section-title">Let's Build Something Amazing</h2>
+          <p class="section-subtitle">
+            Ready to discuss your next project or opportunity
+          </p>
+        </div>
+
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Email</h3>
+                <p>ibtehaj572@gmail.com</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Phone</h3>
+                <p>+92 302 5410301</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fab fa-linkedin"></i>
+              </div>
+              <div class="contact-details">
+                <h3>LinkedIn</h3>
+                <p>linkedin.com/in/ibtehajali</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Location</h3>
+                <p>Islamabad, Pakistan</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contact-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" required />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              <span>Send Message</span>
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-left">
+            <div class="footer-logo">
+              <span class="logo-text">Ibtehaj</span>
+              <span class="logo-accent">.</span>
+            </div>
+            <p>
+              Building the future with innovative web solutions and cutting-edge
+              technology.
+            </p>
+          </div>
+          <div class="footer-right">
+            <div class="footer-social">
+              <a href="mailto:ibtehaj572@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+              </a>
+              <a
+                href="https://linkedin.com/in/ibtehajali"
+                class="social-link"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="https://github.com/ibtehaj-3"
+                class="social-link"
+                target="_blank"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Muhammad Ibtehaj Ali. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
