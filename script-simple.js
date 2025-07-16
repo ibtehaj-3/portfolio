@@ -13,9 +13,6 @@ let countersAnimated = [];
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM loaded, initializing...");
 
-  // Initialize preloader first
-  initializePreloader();
-
   // Initialize all features
   initializeTheme();
   initializeNavigation();
@@ -24,8 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeScrollAnimations();
   initializeContactForm();
   initializeScrollToTop();
-  initializeParallax();
-  initializeEnhancedAnimations();
 
   console.log("All features initialized");
 });
@@ -118,7 +113,7 @@ function initializeNavigation() {
     console.log("Navigation elements not found");
   }
 
-  // Navbar scroll effect and active link highlighting
+  // Navbar scroll effect
   window.addEventListener("scroll", function () {
     const navbar = document.getElementById("navbar");
     if (navbar) {
@@ -128,13 +123,7 @@ function initializeNavigation() {
         navbar.classList.remove("scrolled");
       }
     }
-
-    // Update active navigation links
-    updateActiveNavLink();
   });
-
-  // Initial active link setup
-  updateActiveNavLink();
 
   // Smooth scrolling for anchor links
   const anchorLinks = document.querySelectorAll('a[href^="#"]');
@@ -148,30 +137,8 @@ function initializeNavigation() {
           top: offsetTop,
           behavior: "smooth",
         });
-        closeMobileMenu();
       }
     });
-  });
-}
-
-function updateActiveNavLink() {
-  const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".nav-link");
-  const scrollPos = window.scrollY + 100;
-
-  sections.forEach(function (section) {
-    const top = section.offsetTop;
-    const bottom = top + section.offsetHeight;
-    const id = section.getAttribute("id");
-
-    if (scrollPos >= top && scrollPos <= bottom) {
-      navLinks.forEach(function (link) {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + id) {
-          link.classList.add("active");
-        }
-      });
-    }
   });
 }
 
@@ -334,18 +301,13 @@ function initializeScrollAnimations() {
   if (elements.length > 0) {
     console.log("Found", elements.length, "scroll animation elements");
 
-    // Use throttled scroll for better performance
-    let ticking = false;
-
-    function checkScrollAnimations() {
+    window.addEventListener("scroll", function () {
       elements.forEach(function (element) {
         if (!element.classList.contains("animated")) {
           const rect = element.getBoundingClientRect();
-          const isVisible =
-            rect.top < window.innerHeight - 100 && rect.bottom > 0;
+          const isVisible = rect.top < window.innerHeight - 50;
 
           if (isVisible) {
-            console.log("Animating scroll element");
             element.classList.add("animate-on-scroll");
             setTimeout(function () {
               element.classList.add("animated");
@@ -353,18 +315,7 @@ function initializeScrollAnimations() {
           }
         }
       });
-      ticking = false;
-    }
-
-    window.addEventListener("scroll", function () {
-      if (!ticking) {
-        requestAnimationFrame(checkScrollAnimations);
-        ticking = true;
-      }
     });
-
-    // Check initially in case elements are already visible
-    setTimeout(checkScrollAnimations, 500);
   } else {
     console.log("No scroll animation elements found");
   }
@@ -487,152 +438,6 @@ function initializeScrollToTop() {
   });
 }
 
-// Parallax Effects
-function initializeParallax() {
-  console.log("Initializing parallax effects...");
-
-  const parallaxElements = document.querySelectorAll(
-    ".floating-element, .hero-bg, .parallax-bg"
-  );
-
-  if (parallaxElements.length > 0) {
-    console.log("Found", parallaxElements.length, "parallax elements");
-
-    let ticking = false;
-
-    function updateParallax() {
-      const scrolled = window.pageYOffset;
-
-      parallaxElements.forEach(function (element, index) {
-        const speed = 0.5 + index * 0.1;
-        const yPos = -(scrolled * speed);
-        element.style.transform = "translateY(" + yPos + "px)";
-      });
-
-      ticking = false;
-    }
-
-    window.addEventListener("scroll", function () {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    });
-  }
-}
-
-// Enhanced initialization with better error handling
-function initializeEnhancedAnimations() {
-  console.log("Initializing enhanced animations...");
-
-  // Add fade-in animation to hero section
-  const heroSection = document.querySelector(".hero");
-  if (heroSection) {
-    heroSection.style.opacity = "0";
-    heroSection.style.transform = "translateY(50px)";
-    heroSection.style.transition = "opacity 1s ease, transform 1s ease";
-
-    setTimeout(function () {
-      heroSection.style.opacity = "1";
-      heroSection.style.transform = "translateY(0)";
-    }, 300);
-  }
-
-  // Add stagger animation to nav links
-  const navLinks = document.querySelectorAll(".nav-link");
-  navLinks.forEach(function (link, index) {
-    link.style.opacity = "0";
-    link.style.transform = "translateY(-20px)";
-    link.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-
-    setTimeout(function () {
-      link.style.opacity = "1";
-      link.style.transform = "translateY(0)";
-    }, 100 + index * 100);
-  });
-
-  // Add hover effects to buttons
-  const buttons = document.querySelectorAll(".btn, .cta-button");
-  buttons.forEach(function (button) {
-    button.addEventListener("mouseenter", function () {
-      this.style.transform = "translateY(-2px)";
-      this.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
-    });
-
-    button.addEventListener("mouseleave", function () {
-      this.style.transform = "translateY(0)";
-      this.style.boxShadow = "none";
-    });
-  });
-}
-
-// Preloader
-function initializePreloader() {
-  console.log("Initializing preloader...");
-
-  const preloader = document.createElement("div");
-  preloader.id = "preloader";
-  preloader.innerHTML = `
-        <div class="preloader-content">
-            <div class="spinner"></div>
-            <p>Loading...</p>
-        </div>
-    `;
-
-  preloader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--bg-primary, #0a0a0a);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease;
-    `;
-
-  // Add spinner styles
-  const style = document.createElement("style");
-  style.textContent = `
-        .preloader-content {
-            text-align: center;
-            color: var(--text-primary, #ffffff);
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top: 4px solid #4338ca;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    `;
-
-  document.head.appendChild(style);
-  document.body.appendChild(preloader);
-
-  // Hide preloader after window load
-  window.addEventListener("load", function () {
-    setTimeout(function () {
-      preloader.style.opacity = "0";
-      setTimeout(function () {
-        if (preloader.parentNode) {
-          preloader.parentNode.removeChild(preloader);
-        }
-      }, 500);
-    }, 300);
-  });
-}
-
 // Fallback initialization
 window.addEventListener("load", function () {
   console.log("Window loaded, running fallback checks...");
@@ -653,35 +458,7 @@ window.addEventListener("load", function () {
       console.log("Typing element missing, retrying...");
       initializeTyping();
     }
-
-    // Additional checks for animations
-    const animatedElements = document.querySelectorAll(
-      ".skill-category, .project-card, .timeline-item"
-    );
-    if (animatedElements.length > 0) {
-      console.log("Re-checking scroll animations...");
-      initializeScrollAnimations();
-    }
   }, 1000);
-
-  // Additional retry after 3 seconds
-  setTimeout(function () {
-    console.log("Final initialization check...");
-
-    // Force trigger scroll animations if they haven't started
-    const scrollElements = document.querySelectorAll(
-      ".skill-category, .project-card, .timeline-item, .contact-card"
-    );
-    scrollElements.forEach(function (element) {
-      if (!element.classList.contains("animated")) {
-        const rect = element.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          element.classList.add("animate-on-scroll");
-          element.classList.add("animated");
-        }
-      }
-    });
-  }, 3000);
 });
 
 console.log("Script loaded successfully");
