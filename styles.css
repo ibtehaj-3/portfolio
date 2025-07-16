@@ -269,6 +269,18 @@ a:hover {
     transition: all var(--transition-fast);
 }
 
+.hamburger.active span:first-child {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:third-child {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
 /* Hero Section */
 .hero {
     min-height: calc(100vh - 70px);
