@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .test-result {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .pass {
+        background: #d4edda;
+        color: #155724;
+      }
+      .fail {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .hamburger {
+        display: block;
+        background: none;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+      .nav-menu {
+        display: none;
+      }
+      .nav-menu.active {
+        display: block;
+      }
+      #typing-text {
+        font-weight: bold;
+        color: #007bff;
+      }
+      .stat-number {
+        font-size: 24px;
+        font-weight: bold;
+        color: #28a745;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript Functionality Test</h1>
+
+    <div id="test-results"></div>
+
+    <!-- Test Elements -->
+    <button id="hamburger" class="hamburger">☰ Menu</button>
+    <nav id="nav-menu" class="nav-menu">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+    </nav>
+
+    <button id="theme-toggle">🌙 Toggle Theme</button>
+
+    <p>Typing Animation: <span id="typing-text"></span></p>
+
+    <div class="stat-number" data-target="42">0</div>
+
+    <script>
+      // Test framework
+      const tests = [];
+
+      function test(name, fn) {
+        try {
+          fn();
+          tests.push({ name, status: "pass" });
+        } catch (error) {
+          tests.push({ name, status: "fail", error: error.message });
+        }
+      }
+
+      function runTests() {
+        const results = document.getElementById("test-results");
+        tests.forEach((test) => {
+          const div = document.createElement("div");
+          div.className = `test-result ${test.status}`;
+          div.innerHTML = `<strong>${
+            test.name
+          }</strong>: ${test.status.toUpperCase()}`;
+          if (test.error) {
+            div.innerHTML += `<br>Error: ${test.error}`;
+          }
+          results.appendChild(div);
+        });
+      }
+
+      // Run tests after script loads
+      window.addEventListener("load", () => {
+        test("DOM Elements Available", () => {
+          if (!document.getElementById("hamburger"))
+            throw new Error("Hamburger not found");
+          if (!document.getElementById("nav-menu"))
+            throw new Error("Nav menu not found");
+          if (!document.getElementById("theme-toggle"))
+            throw new Error("Theme toggle not found");
+          if (!document.getElementById("typing-text"))
+            throw new Error("Typing text not found");
+        });
+
+        test("LocalStorage Support", () => {
+          if (typeof Storage === "undefined")
+            throw new Error("LocalStorage not supported");
+          localStorage.setItem("test", "value");
+          if (localStorage.getItem("test") !== "value")
+            throw new Error("LocalStorage not working");
+          localStorage.removeItem("test");
+        });
+
+        test("IntersectionObserver Support", () => {
+          if (!window.IntersectionObserver)
+            throw new Error("IntersectionObserver not supported");
+        });
+
+        test("RequestAnimationFrame Support", () => {
+          if (!window.requestAnimationFrame)
+            throw new Error("RequestAnimationFrame not supported");
+        });
+
+        test("Event Listeners", () => {
+          const hamburger = document.getElementById("hamburger");
+          const navMenu = document.getElementById("nav-menu");
+
+          hamburger.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+          });
+
+          // Simulate click
+          hamburger.click();
+          if (!navMenu.classList.contains("active"))
+            throw new Error("Event listener not working");
+        });
+
+        runTests();
+      });
+    </script>
+
+    <!-- Load your main script -->
+    <script src="script.js"></script>
+  </body>
+</html>
